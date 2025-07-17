@@ -1,3 +1,14 @@
 {
-    "name": "peso/demo"
+    "name": "peso/demo",
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Peso\\Demo\\": "src"
+        }
+    },
+    "require": {
+        "php": ">= 8.4"
+    }
 }
