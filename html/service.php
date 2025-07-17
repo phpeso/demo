@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
+$app = require __DIR__ . '/../src/app.php';
 
-var_dump(\Composer\InstalledVersions::getVersion('peso/demo'));
-
-phpinfo();
+$app->run();
