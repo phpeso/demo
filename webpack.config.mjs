@@ -9,7 +9,15 @@ const dev = process.env.DEV === '1';
 
 export default {
     entry: {
-        index: './assets/scripts/index.ts',
+        bundle1: './assets/scripts/bundle1.ts',
+        bundle2: {
+            import: './assets/scripts/bundle2.ts',
+            dependOn: 'bundle1',
+        },
+        index: {
+            import: './assets/scripts/index.ts',
+            dependOn: 'bundle2',
+        },
     },
     mode: dev ? 'development' : 'production',
     devtool: dev ? 'inline-source-map' : false,
@@ -63,6 +71,7 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             template: './assets/html/index.html',
+            scriptLoading: 'blocking',
         }),
         new MiniCssExtractPlugin(),
     ],

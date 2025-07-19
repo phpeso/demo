@@ -3,10 +3,17 @@
 declare(strict_types=1);
 
 use DI\Bridge\Slim\Bridge;
+use Peso\Demo\ServiceController;
+use Slim\Routing\RouteCollectorProxy;
 
 $container = require __DIR__ . '/container.php';
 $app = Bridge::create($container);
 
-$app->addErrorMiddleware(false, false, false);
+$app->group('/service.php', function (RouteCollectorProxy $service) {
+    $service->get('/convert', [ServiceController::class, 'convert']);
+    $service->get('/currencies', [ServiceController::class, 'currencies']);
+});
+
+$app->addErrorMiddleware(true, false, false);
 
 return $app;

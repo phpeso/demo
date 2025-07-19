@@ -1,6 +1,9 @@
 {
     "name": "peso/demo",
     "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        },
         "sort-packages": true
     },
     "autoload": {
@@ -10,10 +13,17 @@
     },
     "require": {
         "php": ">= 8.4",
-        "nyholm/psr7": "^1.8",
-        "nyholm/psr7-server": "^1.1",
+        "moneyphp/money": "^4.7",
+        "peso/ecb-service": "^1.0",
+        "peso/peso": "^1.1",
         "php-di/php-di": "^7.0",
         "php-di/slim-bridge": "^3.4",
-        "slim/slim": "^4.14"
+        "php-http/discovery": "^1.20",
+        "punic/punic": "^3.8",
+        "slim/http": "^1.4",
+        "slim/psr7": "^1.7",
+        "slim/slim": "^4.14",
+        "symfony/cache": "^7.3",
+        "symfony/http-client": "^7.3"
     }
 }

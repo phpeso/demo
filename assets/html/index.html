@@ -2,9 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Peso Demo</title>
 </head>
 <body>
-<h1>Test</h1>
+    <div class="ui container">
+        <h1 class="ui dividing header">Currency Converter &mdash; Peso Framework Demo</h1>
+    </div>
+    <div class="ui container">
+        <p>
+            This is a demonstration tool for the <a href="https://phpeso.org/">Peso Framework</a>.
+            The currency rate data is taken from <a href="https://www.ecb.europa.eu/">the European Central Bank</a>.
+        </p>
+    </div>
+    <div class="ui container">
+        <form class="ui form" id="conversion-form">
+            <div class="three fields">
+                <div class="field">
+                    <label for="amount">Convert amount</label>
+                    <input type="number" name="amount" id="amount" value="1.00" step="0.01" min="0" required>
+                </div>
+                <div class="field">
+                    <label>From</label>
+                    <div class="ui selection dropdown currency-from">
+                        <input type="hidden" name="from" required>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">From</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>From</label>
+                    <div class="ui selection dropdown currency-to">
+                        <input type="hidden" name="to" required>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">To</div>
+                    </div>
+                </div>
+            </div>
+            <button class="ui button" type="submit">Convert</button>
+        </form>
+    </div>
+    <div class="ui container">
+        <p id="output" class="big"></p>
+    </div>
+    <div class="ui text container">
+        <p class="copyright">&copy; 2025, the Peso Project
+    </div>
 </body>
 </html>

@@ -1,6 +1,64 @@
-import 'fomantic-ui-css/semantic.min.css';
-import '../styles/style.scss';
+import $ from 'jquery'; // fomantic
 
-console.log('213')
+const currencies: { [key: string]: string } = await (await fetch('/service.php/currencies')).json();
 
-export default null;
+interface Value {
+    name: string,
+    value: string,
+    selected?: boolean,
+}
+
+function mapValues(selected: string): Value[] {
+    const values: Value[] = [];
+
+    for (const [code, label] of Object.entries(currencies)) {
+        const country = code.slice(0, 2).toLowerCase();
+        const value: Value = {
+            name: `<i class="${country} flag"></i>${code} - ${label}`,
+            value: code,
+        };
+        if (code === selected) {
+            value.selected = true;
+        }
+        values.push(value);
+    }
+
+    return values;
+}
+
+// @ts-ignore
+$('.currency-from').dropdown({
+    values: mapValues('EUR'),
+});
+// @ts-ignore
+$('.currency-to').dropdown({
+    values: mapValues('USD'),
+});
+
+const form = document.getElementById('conversion-form') as HTMLFormElement;
+const output = document.getElementById('output') as HTMLParagraphElement;
+
+interface Converted {
+    amount: string,
+    tail: string,
+}
+
+form.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const converted: Converted = await (await fetch('/service.php/convert?' + new URLSearchParams(data as any).toString())).json();
+
+    const originalValue =
+        new Intl.NumberFormat("en-US", { style: "currency", currency: data.get('from') as string })
+            .format(Number.parseFloat(data.get('amount') as string));
+    const convertedValue =
+        new Intl.NumberFormat("en-US", { style: "currency", currency: data.get('to') as string })
+            .format(Number.parseFloat(converted.amount));
+
+    const tail = convertedValue.includes('.') ? converted.tail : '.' + converted.tail;
+
+    output.innerHTML = `${originalValue} = ${convertedValue}<span class="tail">${tail}</span>`;
+});
+
+form.requestSubmit();
