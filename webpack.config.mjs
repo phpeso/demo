@@ -1,13 +1,15 @@
 import path from "node:path";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
 import { fileURLToPath } from "url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dev = process.env.DEV === '1';
 
 export default {
     entry: {
-        index: './assets/html/index.html',
+        index: './assets/scripts/index.ts',
     },
     mode: dev ? 'development' : 'production',
     devtool: dev ? 'inline-source-map' : false,
@@ -33,20 +35,35 @@ export default {
                 use: ["ts-loader"],
             },
             {
-                test: /\.html$/,
-                type: "asset/resource",
-                generator: {
-                    filename: "[name][ext]",
-                },
-            },
-            {
-                test: /\.html$/i,
-                loader: "html-loader",
-            },
-            {
                 test: /\.css/i,
-                loader: "css-loader",
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: dev,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.(woff(2)?|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name][ext][query]'
+                }
             }
         ],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './assets/html/index.html',
+        }),
+        new MiniCssExtractPlugin(),
+    ],
 };
