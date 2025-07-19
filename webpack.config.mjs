@@ -60,7 +60,7 @@ export default {
                 ],
             },
             {
-                test: /\.(woff(2)?|eot|ttf|otf)$/i,
+                test: /\.(woff(2)?|eot|ttf|otf|png)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: 'assets/[name][ext][query]'
@@ -72,6 +72,7 @@ export default {
         new HtmlWebpackPlugin({
             template: './assets/html/index.html',
             scriptLoading: 'blocking',
+            favicon: './assets/images/logo.png',
         }),
         new MiniCssExtractPlugin(),
     ],
