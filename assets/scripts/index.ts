@@ -1,6 +1,24 @@
 import $ from 'jquery'; // fomantic
+import { deleteRefresh, tryRefresh } from "./include/refresh";
 
-const currencies: { [key: string]: string } = await (await fetch('/service.php/currencies')).json();
+const currencies: { [key: string]: string } = await (async () => {
+    try {
+        return await (await fetch('/service.php/currencies')).json();
+    } catch (e) {
+        // If we encounter a syntax error, it's likely that onrender instance has expired,
+        // but the HTML was loaded from the cache. Try to reload with a query then
+        if (e instanceof SyntaxError) {
+            tryRefresh();
+            const output = document.getElementById('output') as HTMLParagraphElement;
+            output.innerHTML = 'Backend error. Try refreshing the page or try again later';
+            output.style.color = 'red';
+            throw new Error('Unable to load currencies -- trying to refresh');
+        }
+    }
+})();
+
+// if we successfully retrieved the currency list, remove the refresh param
+deleteRefresh();
 
 interface Value {
     name: string,
@@ -61,4 +79,4 @@ form.addEventListener('submit', async event => {
     output.innerHTML = `${originalValue} = ${convertedValue}<span class="tail">${tail}</span>`;
 });
 
-form.requestSubmit();
+form.requestSubmit(); // demo data
