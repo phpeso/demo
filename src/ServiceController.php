@@ -58,7 +58,10 @@ final readonly class ServiceController
             'YER', 'ZAR', 'ZMW',
         ];
 
-        $labels = array_combine($currencies, array_map(fn ($s) => IntlCurrency::getName($s, locale: 'en_US'), $currencies));
+        $labels = array_combine($currencies, array_map(
+            fn ($s) => $s === 'XCG' ? 'Caribbean Guilder' : IntlCurrency::getName($s, locale: 'en_US'),
+            $currencies,
+        ));
         ksort($labels);
 
         return $response->withJson($labels);

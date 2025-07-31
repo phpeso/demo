@@ -30,7 +30,10 @@ function mapValues(selected: string): Value[] {
     const values: Value[] = [];
 
     for (const [code, label] of Object.entries(currencies)) {
-        const country = code.slice(0, 2).toLowerCase();
+        let country = code.slice(0, 2).toLowerCase();
+        if (country[0] === 'x') {
+            country = 'un';
+        }
         const value: Value = {
             name: `<i class="${country} flag"></i>${code} - ${label}`,
             value: code,
