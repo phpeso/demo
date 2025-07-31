@@ -14,6 +14,6 @@ $app->group('/service.php', function (RouteCollectorProxy $service) {
     $service->get('/currencies', [ServiceController::class, 'currencies']);
 });
 
-$app->addErrorMiddleware(false, false, false);
+$app->addErrorMiddleware(getenv('DEBUG') === '1', false, false);
 
 return $app;
