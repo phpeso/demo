@@ -15,18 +15,18 @@
     },
     "require": {
         "php": ">= 8.4",
-        "moneyphp/money": "^4.7",
+        "moneyphp/money": "^4.7.1",
         "peso/cnb-service": "^1.1",
-        "peso/core": "^1.2",
-        "peso/peso": "^1.1",
-        "php-di/php-di": "^7.0",
-        "php-di/slim-bridge": "^3.4",
+        "peso/core": "^1.4",
+        "peso/peso": "^1.2",
+        "php-di/php-di": "^7.0.11",
+        "php-di/slim-bridge": "^3.4.1",
         "php-http/discovery": "^1.20",
-        "punic/punic": "^3.8",
+        "punic/punic": "^3.8.1",
         "slim/http": "^1.4",
-        "slim/psr7": "^1.7",
+        "slim/psr7": "^1.7.1",
         "slim/slim": "^4.14",
-        "symfony/cache": "^7.3",
-        "symfony/http-client": "^7.3"
+        "symfony/cache": "^7.3.2",
+        "symfony/http-client": "^7.3.2"
     }
 }
