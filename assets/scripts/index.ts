@@ -47,12 +47,15 @@ function mapValues(selected: string): Value[] {
     return values;
 }
 
+const currencyFrom = $('.currency-from');
+const currencyTo = $('.currency-to');
+
 // @ts-ignore
-$('.currency-from').dropdown({
+currencyFrom.dropdown({
     values: mapValues('EUR'),
 });
 // @ts-ignore
-$('.currency-to').dropdown({
+currencyTo.dropdown({
     values: mapValues('USD'),
 });
 
@@ -83,3 +86,21 @@ form.addEventListener('submit', async event => {
 });
 
 form.requestSubmit(); // demo data
+
+const from = document.querySelector('input[name="from"]') as HTMLInputElement;
+const to = document.querySelector('input[name="to"]') as HTMLInputElement;
+const toggle1 = document.getElementById('toggle-desktop') as HTMLButtonElement;
+const toggle2 = document.getElementById('toggle-mobile') as HTMLButtonElement;
+
+function toggle() {
+    const fromValue = from.value;
+    const toValue = to.value;
+
+    // @ts-ignore
+    currencyFrom.dropdown('set selected', toValue);
+    // @ts-ignore
+    currencyTo.dropdown('set selected', fromValue);
+}
+
+toggle1.addEventListener('click', toggle);
+toggle2.addEventListener('click', toggle);

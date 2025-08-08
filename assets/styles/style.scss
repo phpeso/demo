@@ -19,3 +19,14 @@
 html, body {
     height: 100%;
 }
+
+@media only screen and (max-width: 767.98px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+@media only screen and (min-width: 767.98px) {
+    .show-mobile {
+        display: none !important;
+    }
+}

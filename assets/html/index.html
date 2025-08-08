@@ -17,12 +17,12 @@
     </div>
     <div class="ui container">
         <form class="ui form" id="conversion-form">
-            <div class="three fields">
-                <div class="field">
-                    <label for="amount">Convert amount</label>
+            <div class="fields">
+                <div class="five wide field">
+                    <label for="amount">Convert</label>
                     <input type="number" name="amount" id="amount" value="1.00" step="0.01" min="0" required>
                 </div>
-                <div class="field">
+                <div class="five wide field">
                     <label>From</label>
                     <div class="ui search selection dropdown currency-from">
                         <input type="hidden" name="from" required>
@@ -30,8 +30,15 @@
                         <div class="default text">From</div>
                     </div>
                 </div>
-                <div class="field">
-                    <label>From</label>
+                <div class="field hide-mobile">
+                    <label></label>
+                    <button class="ui icon button" type="button" id="toggle-desktop"><i class="arrows alternate horizontal icon"></i></button>
+                </div>
+                <div class="field show-mobile">
+                    <button class="ui icon button" type="button" id="toggle-mobile"><i class="arrows alternate vertical icon"></i></button>
+                </div>
+                <div class="five wide field">
+                    <label>To</label>
                     <div class="ui search selection dropdown currency-to">
                         <input type="hidden" name="to" required>
                         <i class="dropdown icon"></i>
