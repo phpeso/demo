@@ -44,6 +44,7 @@ final readonly class ServiceController
 
     public function currencies(Response $response): ResponseInterface
     {
+        // taken from the CNB response
         $currencies = [
             'AED', 'AFN', 'ALL', 'AMD', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF',
             'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY', 'COP',
@@ -59,7 +60,10 @@ final readonly class ServiceController
         ];
 
         $labels = array_combine($currencies, array_map(
-            fn ($s) => $s === 'XCG' ? 'Caribbean Guilder' : IntlCurrency::getName($s, locale: 'en_US'),
+            fn ($s) => match ($s) {
+                'XCG' => 'Caribbean Guilder', // missing from the current Punic
+                default => IntlCurrency::getName($s, locale: 'en_US'),
+            },
             $currencies,
         ));
         ksort($labels);
